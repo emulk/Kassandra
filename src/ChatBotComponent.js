@@ -33,6 +33,8 @@ class ChatBotCompontent extends Component {
 
         this.onReady = this.onReady.bind(this);
         this.onError = this.onError.bind(this);
+
+        this.closeBot = this.closeBot.bind(this);
     }
 
     componentDidMount() {
@@ -41,7 +43,10 @@ class ChatBotCompontent extends Component {
 
         // Load our files 
         this.riverScript.loadFile([
-            window.location.href + "/testsuite.rive"
+            window.location.href + "/testsuite.rive",
+            window.location.href + "/myself.rive",
+            window.location.href + "/eliza.rive",
+            window.location.href + "/clients.rive"
         ]).then(this.onReady).catch(this.onError);
         // You can register objects that can then be called
         // using <call></call> syntax
@@ -94,20 +99,29 @@ class ChatBotCompontent extends Component {
         }
     }
 
+    closeBot() {
+
+    }
+
     render() {
         return (
             <Container className="appWrapper">
                 <span className="contentScreen">
 
                     <Row className="topWrapper">
-                        <div className="close">
-                            <div data-size="normal" className="tpl-close">
-                                <FontAwesomeIcon onClick={this.botQuestion} icon={faTimes} />
-                            </div>
-                        </div>
                         <Col>
-                            <div  className="botName">Kassandra</div>
+                            <img src="favicon.ico" alt="Icon" />
                         </Col>
+                        <Col>
+                            <div className="botName">Kassandra</div>
+                        </Col>
+                        <Col>
+                            <div className="close">
+                                <FontAwesomeIcon onClick={this.closeBot} icon={faTimes} />
+                            </div>
+                        </Col>
+
+
                     </Row>
                     <Row className="conversation">
                         <Col>
