@@ -35,6 +35,7 @@ class ChatBotCompontent extends Component {
         this.onError = this.onError.bind(this);
 
         this.closeBot = this.closeBot.bind(this);
+        this.submitButton = this.submitButton.bind(this);
     }
 
     componentDidMount() {
@@ -99,6 +100,11 @@ class ChatBotCompontent extends Component {
         }
     }
 
+    submitButton() {
+        this.botQuestion();
+        document.getElementById('inputForm').value = '';
+    }
+
     closeBot() {
 
     }
@@ -140,9 +146,9 @@ class ChatBotCompontent extends Component {
                         <Col>
                             <InputGroup size="lg">
                                 <FormControl
-                                    placeholder="Write here..." className="inputForm" onKeyPress={this.submitInput} onChange={this.updateInputValue} aria-label="Default" aria-describedby="inputGroup-sizing-default" />
+                                    placeholder="Write here..." id="inputForm" className="inputForm" onKeyPress={this.submitInput} onChange={this.updateInputValue} aria-label="Default" aria-describedby="inputGroup-sizing-default" />
                                 <InputGroup.Prepend>
-                                    <FontAwesomeIcon onClick={this.botQuestion} icon={faPaperPlane} size="2x" />
+                                    <FontAwesomeIcon onClick={this.submitButton} icon={faPaperPlane} size="2x" />
                                 </InputGroup.Prepend>
                             </InputGroup>
                         </Col>
