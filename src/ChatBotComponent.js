@@ -66,19 +66,24 @@ class ChatBotCompontent extends Component {
 
 
     botQuestion() {
-        // RiveScript remembers user data by their username and can tell
-        // multiple users apart.
-        let username = "local-user";
-        let responseAnsware = this.state.answare;
-        // NOTE: the API has changed in v2.0.0 and returns a Promise now.
-        this.riverScript.reply(username, this.state.inputValue).then(reply => {
-            let botResponse = new BotResponse(this.state.inputValue, 'humanMessage', 'humanTd');
-            responseAnsware.push(botResponse);
-            botResponse = new BotResponse(reply, 'botMessage', '');
-            responseAnsware.push(botResponse);
+        if (this.state.inputValue.length > 0) {
+            // RiveScript remembers user data by their username and can tell
+            // multiple users apart.
+            let username = "local-user";
+            let responseAnsware = this.state.answare;
+            // NOTE: the API has changed in v2.0.0 and returns a Promise now.
+            this.riverScript.reply(username, this.state.inputValue).then(reply => {
+                let botResponse = new BotResponse(this.state.inputValue, 'humanMessage', 'humanTd');
+                responseAnsware.push(botResponse);
+                botResponse = new BotResponse(reply, 'botMessage', '');
+                responseAnsware.push(botResponse);
 
-            this.setState({ answare: responseAnsware })
-        });
+                this.setState({
+                    inputValue: '',
+                    answare: responseAnsware
+                })
+            });
+        }
     }
 
     updateAnsareResponse(response) {
@@ -131,7 +136,7 @@ class ChatBotCompontent extends Component {
                     </Row>
                     <Row className="conversation">
                         <Col>
-                            <Table responsive>
+                            <Table >
                                 <tbody>
                                     {this.state.answare.map(item => (
                                         <tr className={item.classTd} >
