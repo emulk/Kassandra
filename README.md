@@ -8,6 +8,8 @@ This bot is using the riverscript library
 RiveScript is a simple scripting language for chatbots with a friendly, easy to learn syntax.
 
 
+### Demo
+
 Follow the link to see the demo of Kassandra in action:
 
 [Demo](https://www.elegantweb.it/ChatBot/)
@@ -28,3 +30,10 @@ Follow the link to see the demo of Kassandra in action:
 * where is your website
 * news
 * ...
+
+### Deployment
+
+* git clone https://github.com/emulk/Kassandra.git
+* cd Kassandra
+* npm install
+* npm start
