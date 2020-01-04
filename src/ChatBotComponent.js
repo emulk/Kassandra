@@ -47,7 +47,8 @@ class ChatBotCompontent extends Component {
             window.location.href + "/testsuite.rive",
             window.location.href + "/myself.rive",
             window.location.href + "/eliza.rive",
-            window.location.href + "/clients.rive"
+            window.location.href + "/clients.rive",
+            window.location.href + "/news.rive"
         ]).then(this.onReady).catch(this.onError);
         // You can register objects that can then be called
         // using <call></call> syntax
@@ -131,8 +132,6 @@ class ChatBotCompontent extends Component {
                                 <FontAwesomeIcon onClick={this.closeBot} icon={faTimes} />
                             </div>
                         </Col>
-
-
                     </Row>
                     <Row className="conversation">
                         <Col>
@@ -163,12 +162,11 @@ class ChatBotCompontent extends Component {
                             Powered by <a target="_blank" href="https://www.elegantweb.it/">ElegantWeb</a>
                         </Col>
                     </Row>
+
                 </span>
             </Container>
         );
     }
-
 }
-
 
 export default ChatBotCompontent;

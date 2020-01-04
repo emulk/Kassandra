@@ -41,8 +41,9 @@
 + what is your occupation
 - I'm a <bot job>.
 
-+ where is your (website|web site|site)
++ where is your (website|web site|site) | website|web site|site
 - <bot website>
+- my webisite is <bot website>
 
 + what color are your eyes
 - I have <bot eyes> eyes.
