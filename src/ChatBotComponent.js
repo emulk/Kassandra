@@ -11,7 +11,6 @@ class BotResponse {
         this.className = ClassName;
         this.classTd = ClassTd;
     }
-
 }
 
 class ChatBotCompontent extends Component {
@@ -36,11 +35,12 @@ class ChatBotCompontent extends Component {
 
         this.closeBot = this.closeBot.bind(this);
         this.submitButton = this.submitButton.bind(this);
+
+        this.scrollToBottom = this.scrollToBottom.bind(this);
     }
 
     componentDidMount() {
-        this.riverScript = new window.RiveScript({
-        });
+        this.riverScript = new window.RiveScript();
 
         // Load our files 
         this.riverScript.loadFile([
@@ -65,7 +65,6 @@ class ChatBotCompontent extends Component {
         console.log(err);
     }
 
-
     botQuestion() {
         if (this.state.inputValue.length > 0) {
             // RiveScript remembers user data by their username and can tell
@@ -83,6 +82,8 @@ class ChatBotCompontent extends Component {
                     inputValue: '',
                     answare: responseAnsware
                 })
+
+                this.scrollToBottom();
             });
         }
     }
@@ -118,6 +119,13 @@ class ChatBotCompontent extends Component {
         })
     }
 
+    scrollToBottom() {
+        var rows = document.querySelectorAll('#tableID tr');
+        rows[(rows.length - 1)].scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+
     render() {
         return (
             <Container className="appWrapper">
@@ -138,11 +146,11 @@ class ChatBotCompontent extends Component {
                     </Row>
                     <Row className="conversation">
                         <Col>
-                            <Table >
+                            <Table id="tableID" >
                                 <tbody>
-                                    {this.state.answare.map(item => (
-                                        <tr className={item.classTd} >
-                                            <td className={item.className} >{item.message}</td>
+                                    {this.state.answare.map((item, i) => (
+                                        <tr className={item.classTd} key={i} >
+                                            <td className={item.className} key={i}>{item.message}</td>
                                         </tr>
                                     ))}
                                 </tbody>

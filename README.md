@@ -31,7 +31,7 @@ Follow the link to see the demo of Kassandra in action:
 * news
 * ...
 
-### Deployment
+### INSTALLATION
 
 * git clone https://github.com/emulk/Kassandra.git
 * cd Kassandra
