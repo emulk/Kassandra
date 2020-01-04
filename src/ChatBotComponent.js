@@ -112,7 +112,10 @@ class ChatBotCompontent extends Component {
     }
 
     closeBot() {
-
+        this.setState({
+            inputValue: '',
+            answare: []
+        })
     }
 
     render() {
