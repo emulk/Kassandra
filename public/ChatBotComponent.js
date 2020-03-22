@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Table, InputGroup, FormControl } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane, faTimes } from '@fortawesome/free-solid-svg-icons';
+import FormData from 'form-data';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ChatBotStyle.css';
 
@@ -69,6 +70,7 @@ class ChatBotCompontent extends Component {
 
     botQuestion() {
         if (this.state.inputValue.length > 0) {
+            debugger;
             // RiveScript remembers user data by their username and can tell
             // multiple users apart.
             let username = "local-user";
@@ -93,24 +95,29 @@ class ChatBotCompontent extends Component {
     }
 
     sendLog(responseAnsware) {
+        debugger;
         var dataLog = "";
         for (var i = 0; i < responseAnsware.length; i++) {
-            dataLog += responseAnsware[i].className + " : " + responseAnsware[i].message + " ; ";
+            dataLog += responseAnsware[i].message + " : " + responseAnsware[i].className + " ; ";
         }
 
+        let formData = new FormData();
+        formData.append('log', dataLog);
         if (dataLog.length > 0) {
-            //window.location.href + "log.php"
-            //http://localhost/Temp/appIdeas/chatbot/src/log/log.php?log=
-/*
-            fetch("http://localhost/Temp/appIdeas/chatbot/src/log.php", {
-                method: 'POST',
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                body: JSON.stringify("log","ciao")
-            }).then((response) => response.text())
-                .then((responseData) => { console.log("response: " + responseData); })
-                .catch((err) => { console.log(err); });*/
-
-            fetch(window.location.href + "log.php?log=" + dataLog);
+            fetch(window.location.href + 'log.php', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: formData
+            }).then((res) => res.json())
+                .then((responseJson) => {
+                    console.log(responseJson.output);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         }
     }
 

@@ -8,12 +8,15 @@
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "@fortawesome/react-fontawesome": "^0.1.8",
     "aiml-high": "0.0.8",
+    "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "form-data": "^3.0.0",
     "fs": "0.0.1-security",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",
     "react-fontawesome": "^1.7.1",
+    "react-formdata": "^3.0.0",
     "react-scripts": "0.9.5",
     "rivescript": "^2.0.0",
     "xmldom": "^0.2.1"
@@ -23,6 +26,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "buildapp": "npm run build"
   }
 }
