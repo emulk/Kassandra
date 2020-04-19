@@ -12,6 +12,8 @@ Follow the link to see the demo of Kassandra in action:
 
 ### Supported Questions
 
+* News
+* covid|coronavirus|corona
 * Hi
 * Something new
 * How are you 

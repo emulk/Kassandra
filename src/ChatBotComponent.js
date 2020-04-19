@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Table, InputGroup, FormControl } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane, faTimes } from '@fortawesome/free-solid-svg-icons';
+import News from './News/NewsComponent';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ChatBotStyle.css';
 
@@ -52,8 +53,6 @@ class ChatBotCompontent extends Component {
             window.location.href + "/clients.rive",
             window.location.href + "/news.rive"
         ]).then(this.onReady).catch(this.onError);
-        // You can register objects that can then be called
-        // using <call></call> syntax
         this.riverScript.setSubroutine('fancyJSObject', function (rs, args) {
         });
     }
@@ -73,22 +72,60 @@ class ChatBotCompontent extends Component {
             // multiple users apart.
             let username = "local-user";
             let responseAnsware = this.state.answare;
-            // NOTE: the API has changed in v2.0.0 and returns a Promise now.
-            this.riverScript.reply(username, this.state.inputValue).then(reply => {
-                let botResponse = new BotResponse(this.state.inputValue, 'humanMessage', 'humanTd');
-                responseAnsware.push(botResponse);
-                botResponse = new BotResponse(reply, 'botMessage', '');
-                responseAnsware.push(botResponse);
 
-                this.sendLog(responseAnsware);
+            if (this.state.inputValue.includes("corona") || this.state.inputValue.includes("coronavirus")|| this.state.inputValue.includes("covid")) {
+                News("coronavirus").then(title => {
+                    if (title) {
+                        let botResponse = new BotResponse("news", 'humanMessage', 'humanTd');
+                        responseAnsware.push(botResponse);
+                        botResponse = new BotResponse(title, 'botMessage', '');
+                        responseAnsware.push(botResponse);
 
-                this.setState({
-                    inputValue: '',
-                    answare: responseAnsware
-                })
+                        this.sendLog(responseAnsware);
 
-                this.scrollToBottom();
-            });
+                        this.setState({
+                            inputValue: '',
+                            answare: responseAnsware
+                        })
+
+                        this.scrollToBottom();
+                    }
+                });
+            } else if (this.state.inputValue.includes("news")) {
+                News().then(title => {
+                    if (title) {
+                        let botResponse = new BotResponse("news", 'humanMessage', 'humanTd');
+                        responseAnsware.push(botResponse);
+                        botResponse = new BotResponse(title, 'botMessage', '');
+                        responseAnsware.push(botResponse);
+
+                        this.sendLog(responseAnsware);
+
+                        this.setState({
+                            inputValue: '',
+                            answare: responseAnsware
+                        })
+
+                        this.scrollToBottom();
+                    }
+                });
+            } else {
+                this.riverScript.reply(username, this.state.inputValue).then(reply => {
+                    let botResponse = new BotResponse(this.state.inputValue, 'humanMessage', 'humanTd');
+                    responseAnsware.push(botResponse);
+                    botResponse = new BotResponse(reply, 'botMessage', '');
+                    responseAnsware.push(botResponse);
+
+                    this.sendLog(responseAnsware);
+
+                    this.setState({
+                        inputValue: '',
+                        answare: responseAnsware
+                    })
+
+                    this.scrollToBottom();
+                });
+            }
         }
     }
 
@@ -101,14 +138,14 @@ class ChatBotCompontent extends Component {
         if (dataLog.length > 0) {
             //window.location.href + "log.php"
             //http://localhost/Temp/appIdeas/chatbot/src/log/log.php?log=
-/*
-            fetch("http://localhost/Temp/appIdeas/chatbot/src/log.php", {
-                method: 'POST',
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                body: JSON.stringify("log","ciao")
-            }).then((response) => response.text())
-                .then((responseData) => { console.log("response: " + responseData); })
-                .catch((err) => { console.log(err); });*/
+            /*
+                        fetch("http://localhost/Temp/appIdeas/chatbot/src/log.php", {
+                            method: 'POST',
+                            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                            body: JSON.stringify("log","ciao")
+                        }).then((response) => response.text())
+                            .then((responseData) => { console.log("response: " + responseData); })
+                            .catch((err) => { console.log(err); });*/
 
             fetch(window.location.href + "log.php?log=" + dataLog);
         }
@@ -121,8 +158,9 @@ class ChatBotCompontent extends Component {
     }
 
     updateInputValue(evt) {
+        let _input = evt.target.value.toLowerCase();
         this.setState({
-            inputValue: evt.target.value
+            inputValue: _input
         });
     }
 
