@@ -1,11 +1,14 @@
 export default async function News(parameter) {
-    let url = "";
+    let url = window.location.href;
+    let debugUrl = "https://www.elegantweb.it/ChatBot/";
+    url=debugUrl;
     let randomPick = 0;
     if (parameter) {
         //window.location.href
-        url = window.location.href + "log.php?news=coronavirus";
+
+        url +=  "log.php?news=coronavirus";
     } else {
-        url = window.location.href + "log.php?news=news";
+        url +=  "log.php?news=news";
     }
     let response = await fetch(url);
     let data = await response.json();
